@@ -1,5 +1,6 @@
-package com.example.demo.entities.product;
+package com.warehouse.app.beans.product.product;
 
+import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +26,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public void postProduct(@RequestBody(required = false) Map<String, Object> payload) throws Exception {
+    public void postProduct(@RequestBody(required = false) DataStructure<String, Object> payload) throws Exception {
         Product product = new Product();
         productService.insert(product);
     }
 
     @PutMapping("/{id}")
-    public void putProduct(@PathVariable("id") Long id, @RequestBody(required = false) Map<String, Object> payload) throws Exception {
+    public void putProduct(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<String, Object> payload) throws Exception {
         Product product = new Product();
         productService.update(id, product);
     }

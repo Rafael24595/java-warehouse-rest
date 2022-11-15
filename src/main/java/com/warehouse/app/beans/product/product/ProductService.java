@@ -1,4 +1,4 @@
-package com.example.demo.entities.product;
+package com.warehouse.app.beans.product.product;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

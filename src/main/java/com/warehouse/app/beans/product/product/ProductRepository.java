@@ -1,4 +1,4 @@
-package com.example.demo.entities.product;
+package com.warehouse.app.beans.product.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
-package com.example.demo.entities.product;
+package com.warehouse.app.beans.product.product;
 
-import com.example.demo.entities.WarehouseEntity;
-import com.example.demo.entities.product.situation.ProductSituation;
+import com.warehouse.app.beans.WarehouseBean;
+import com.warehouse.app.beans.product.situation.ProductSituation;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
@@ -13,7 +13,7 @@ import java.util.Date;
                 name = "uc_products",
                 columnNames = {"id", "name", "version", "platform", "format", "region", "type"})
 })
-public class Product implements WarehouseEntity<Product> {
+public class Product implements WarehouseBean<Product> {
 
     // Base ID
     @Id

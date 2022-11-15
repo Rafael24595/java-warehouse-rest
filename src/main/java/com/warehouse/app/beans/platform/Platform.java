@@ -1,4 +1,4 @@
-package com.example.demo.entities.platform;
+package com.warehouse.app.beans.platform;
 
 import javax.persistence.*;
 

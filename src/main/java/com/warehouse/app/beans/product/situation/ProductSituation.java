@@ -1,6 +1,6 @@
-package com.example.demo.entities.product.situation;
+package com.warehouse.app.beans.product.situation;
 
-import com.example.demo.entities.product.Product;
+import com.warehouse.app.beans.product.product.Product;
 
 import javax.persistence.*;
 import java.util.Date;
