@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DataStructureTest {
 
     public static final String K_String = "String";
-    public static final String K_Long = "Long";
     public static final String K_Integer = "Integer";
     public static final String K_integer = "integer";
+    public static final String K_Long = "Long";
     public static final String K_long = "long";
     public static final String K_Double = "Double";
     public static final String K_double = "double";
