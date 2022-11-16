@@ -24,10 +24,28 @@ public class DataStructure<K,V> extends HashMap<String,V> implements Map<String,
         return getString(key, false);
     }
 
+    private Integer getInteger(String key, boolean exception) throws IllegalArgumentException{
+        try {
+            Double doubleValue = getDouble(key, exception);
+            return doubleValue == null ? null : doubleValue.intValue();
+        }catch (IllegalArgumentException e){
+            if(exception)
+                throw new IllegalArgumentException("");
+            return Integer.valueOf(0);
+        }
+    }
+
+    public Integer getIntegerHard(String key) throws IllegalArgumentException{
+        return getInteger(key, true);
+    }
+    public Integer getIntegerSoft(String key) throws IllegalArgumentException{
+        return getInteger(key, false);
+    }
+
     private Double getDouble(String key, boolean exception) throws IllegalArgumentException{
         try {
             String stringValue = getStringSoft(key);
-            return Double.valueOf(stringValue);
+            return stringValue == null ? null : Double.valueOf(stringValue);
         }catch (NumberFormatException e){
             if(exception)
                 throw new IllegalArgumentException("");
@@ -43,18 +61,18 @@ public class DataStructure<K,V> extends HashMap<String,V> implements Map<String,
         return getDouble(key, false);
     }
 
-    public Long getLong(String key, boolean exception) throws IllegalArgumentException{
+    private Long getLong(String key, boolean exception) throws IllegalArgumentException{
         try {
-            String stringValue = getStringSoft(key);
-            return Long.valueOf(stringValue);
-        }catch (NumberFormatException e){
+            Double doubleValue = getDouble(key, exception);
+            return doubleValue == null ? null : doubleValue.longValue();
+        }catch (IllegalArgumentException e){
             if(exception)
                 throw new IllegalArgumentException("");
             return Long.valueOf(0);
         }
     }
 
-    private Long getLongHard(String key) throws IllegalArgumentException{
+    public Long getLongHard(String key) throws IllegalArgumentException{
         return  getLong(key, true);
     }
 
@@ -63,21 +81,24 @@ public class DataStructure<K,V> extends HashMap<String,V> implements Map<String,
     }
 
     private Boolean getBoolean(String key, boolean exception) throws IllegalArgumentException{
-        try {
+        V value = get(key);
+
+        if(value == null)
+            return null;
+
+        if(!exception || (exception && value instanceof Boolean)){
             String stringValue = getStringSoft(key);
             return Boolean.valueOf(stringValue);
-        }catch (NumberFormatException e){
-            if(exception)
-                throw new IllegalArgumentException("");
-            return Boolean.valueOf(false);
         }
+
+        throw new IllegalArgumentException("");
     }
 
-    public Boolean getBooleanHard(String key, boolean exception) throws IllegalArgumentException{
+    public Boolean getBooleanHard(String key) throws IllegalArgumentException{
         return getBoolean(key, true);
     }
 
-    public Boolean getBooleanSoft(String key, boolean exception) {
+    public Boolean getBooleanSoft(String key) {
         return getBoolean(key, false);
     }
 

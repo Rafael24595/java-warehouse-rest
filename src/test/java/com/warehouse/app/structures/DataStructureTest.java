@@ -1,6 +1,5 @@
 package com.warehouse.app.structures;
 
-import com.warehouse.app.structures.DataStructure;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,12 +9,13 @@ public class DataStructureTest {
 
     public static final String K_String = "String";
     public static final String K_Long = "Long";
+    public static final String K_Integer = "Integer";
+    public static final String K_integer = "integer";
     public static final String K_long = "long";
     public static final String K_Double = "Double";
     public static final String K_double = "double";
     public static final String K_Boolean = "Boolean";
     public static final String K_boolean = "boolean";
-
     public static final String K_NotFound = "NotFound";
 
     public static DataStructure structure;
@@ -24,10 +24,12 @@ public class DataStructureTest {
     public static void fillDataStructure(){
         structure = new DataStructure();
         structure.put(K_String, "char_string");
-        structure.put(K_Long, Long.valueOf(1));
-        structure.put(K_long, (long) 2);
-        structure.put(K_Double, Double.valueOf(3.3));
-        structure.put(K_double, 4.4);
+        structure.put(K_Integer, Integer.valueOf(1));
+        structure.put(K_integer, 2);
+        structure.put(K_Long, Long.valueOf(3));
+        structure.put(K_long, (long) 4);
+        structure.put(K_Double, Double.valueOf(5.5));
+        structure.put(K_double, 6.6);
         structure.put(K_Boolean, Boolean.valueOf(true));
         structure.put(K_boolean, true);
     }
@@ -35,10 +37,12 @@ public class DataStructureTest {
     @Test
     public void getStringSoftTest(){
         assertEquals("char_string", structure.getStringSoft(K_String));
-        assertEquals("1", structure.getStringSoft(K_Long));
-        assertEquals("2", structure.getStringSoft(K_long));
-        assertEquals("3.3", structure.getStringSoft(K_Double));
-        assertEquals("4.4", structure.getStringSoft(K_double));
+        assertEquals("1", structure.getStringSoft(K_Integer));
+        assertEquals("2", structure.getStringSoft(K_integer));
+        assertEquals("3", structure.getStringSoft(K_Long));
+        assertEquals("4", structure.getStringSoft(K_long));
+        assertEquals("5.5", structure.getStringSoft(K_Double));
+        assertEquals("6.6", structure.getStringSoft(K_double));
         assertEquals("true", structure.getStringSoft(K_Boolean));
         assertEquals("true", structure.getStringSoft(K_boolean));
 
@@ -48,14 +52,136 @@ public class DataStructureTest {
     @Test
     public void getStringHardTest(){
         assertDoesNotThrow(()-> structure.getStringHard(K_String));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_Integer));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_integer));
         assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_Long));
-        assertThrowsExactly(IllegalArgumentException.class, ()->structure.getStringHard(K_long));
-        assertThrowsExactly(IllegalArgumentException.class, ()->structure.getStringHard(K_Double));
-        assertThrowsExactly(IllegalArgumentException.class, ()->structure.getStringHard(K_double));
-        assertThrowsExactly(IllegalArgumentException.class, ()->structure.getStringHard(K_Boolean));
-        assertThrowsExactly(IllegalArgumentException.class, ()->structure.getStringHard(K_boolean));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_long));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_Double));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_double));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_Boolean));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getStringHard(K_boolean));
 
         assertDoesNotThrow(()-> structure.getStringHard(K_NotFound));
+    }
+
+    @Test
+    public void getIntegerSoftTest(){
+        assertEquals(0, structure.getIntegerSoft(K_String));
+        assertEquals(1, structure.getIntegerSoft(K_Integer));
+        assertEquals(2, structure.getIntegerSoft(K_integer));
+        assertEquals(3, structure.getIntegerSoft(K_Long));
+        assertEquals(4, structure.getIntegerSoft(K_long));
+        assertEquals(5, structure.getIntegerSoft(K_Double));
+        assertEquals(6, structure.getIntegerSoft(K_double));
+        assertEquals(0, structure.getIntegerSoft(K_Boolean));
+        assertEquals(0, structure.getIntegerSoft(K_boolean));
+
+        assertEquals(null, structure.getIntegerSoft(K_NotFound));
+    }
+
+    @Test
+    public void getIntegerHardTest(){
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getIntegerHard(K_String));
+        assertDoesNotThrow(()-> structure.getIntegerHard(K_Integer));
+        assertDoesNotThrow(()-> structure.getIntegerHard(K_integer));
+        assertDoesNotThrow(()-> structure.getIntegerHard(K_Long));
+        assertDoesNotThrow(()-> structure.getIntegerHard(K_long));
+        assertDoesNotThrow(()-> structure.getIntegerHard(K_Double));
+        assertDoesNotThrow(()-> structure.getIntegerHard(K_double));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getIntegerHard(K_Boolean));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getIntegerHard(K_boolean));
+
+        assertDoesNotThrow(()-> structure.getLongHard(K_NotFound));
+    }
+
+    @Test
+    public void getLongSoftTest(){
+        assertEquals(0, structure.getLongSoft(K_String));
+        assertEquals(1, structure.getLongSoft(K_Integer));
+        assertEquals(2, structure.getLongSoft(K_integer));
+        assertEquals(3, structure.getLongSoft(K_Long));
+        assertEquals(4, structure.getLongSoft(K_long));
+        assertEquals(5, structure.getLongSoft(K_Double));
+        assertEquals(6, structure.getLongSoft(K_double));
+        assertEquals(0, structure.getLongSoft(K_Boolean));
+        assertEquals(0, structure.getLongSoft(K_boolean));
+
+        assertEquals(null, structure.getStringSoft(K_NotFound));
+    }
+
+    @Test
+    public void getLongHardTest(){
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getLongHard(K_String));
+        assertDoesNotThrow(()-> structure.getLongHard(K_Integer));
+        assertDoesNotThrow(()-> structure.getLongHard(K_integer));
+        assertDoesNotThrow(()-> structure.getLongHard(K_Long));
+        assertDoesNotThrow(()-> structure.getLongHard(K_long));
+        assertDoesNotThrow(()-> structure.getLongHard(K_Double));
+        assertDoesNotThrow(()-> structure.getLongHard(K_double));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getLongHard(K_Boolean));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getLongHard(K_boolean));
+
+        assertDoesNotThrow(()-> structure.getLongHard(K_NotFound));
+    }
+
+    @Test
+    public void getDoubleSoftTest(){
+        assertEquals(0.0, structure.getDoubleSoft(K_String));
+        assertEquals(1.0, structure.getDoubleSoft(K_Integer));
+        assertEquals(2.0, structure.getDoubleSoft(K_integer));
+        assertEquals(3.0, structure.getDoubleSoft(K_Long));
+        assertEquals(4.0, structure.getDoubleSoft(K_long));
+        assertEquals(5.5, structure.getDoubleSoft(K_Double));
+        assertEquals(6.6, structure.getDoubleSoft(K_double));
+        assertEquals(0.0, structure.getDoubleSoft(K_Boolean));
+        assertEquals(0.0, structure.getDoubleSoft(K_boolean));
+
+        assertEquals(null, structure.getStringSoft(K_NotFound));
+    }
+
+    @Test
+    public void getDoubleHardTest(){
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getDoubleHard(K_String));
+        assertDoesNotThrow(()-> structure.getDoubleHard(K_Integer));
+        assertDoesNotThrow(()-> structure.getDoubleHard(K_integer));
+        assertDoesNotThrow(()-> structure.getDoubleHard(K_Long));
+        assertDoesNotThrow(()-> structure.getDoubleHard(K_long));
+        assertDoesNotThrow(()-> structure.getDoubleHard(K_Double));
+        assertDoesNotThrow(()-> structure.getDoubleHard(K_double));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getDoubleHard(K_Boolean));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getDoubleHard(K_boolean));
+
+        assertDoesNotThrow(()-> structure.getDoubleHard(K_NotFound));
+    }
+
+    @Test
+    public void getBooleanSoftTest(){
+        assertEquals(false, structure.getBooleanSoft(K_String));
+        assertEquals(false, structure.getBooleanSoft(K_Integer));
+        assertEquals(false, structure.getBooleanSoft(K_integer));
+        assertEquals(false, structure.getBooleanSoft(K_Long));
+        assertEquals(false, structure.getBooleanSoft(K_long));
+        assertEquals(false, structure.getBooleanSoft(K_Double));
+        assertEquals(false, structure.getBooleanSoft(K_double));
+        assertEquals(true, structure.getBooleanSoft(K_Boolean));
+        assertEquals(true, structure.getBooleanSoft(K_boolean));
+
+        assertEquals(null, structure.getBooleanSoft(K_NotFound));
+    }
+
+    @Test
+    public void getBooleanHardTest(){
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getBooleanHard(K_String));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getBooleanHard(K_Integer));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getBooleanHard(K_integer));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getBooleanHard(K_Long));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getBooleanHard(K_long));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getBooleanHard(K_Double));
+        assertThrowsExactly(IllegalArgumentException.class, ()-> structure.getBooleanHard(K_double));
+        assertDoesNotThrow(()-> structure.getBooleanHard(K_Boolean));
+        assertDoesNotThrow(()-> structure.getBooleanHard(K_boolean));
+
+        assertDoesNotThrow(()-> structure.getBooleanHard(K_NotFound));
     }
 
 }
