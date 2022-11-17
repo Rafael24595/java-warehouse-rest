@@ -1,11 +1,11 @@
 package com.warehouse.app.beans.product.product;
 
+import com.warehouse.app.beans.product.situation.ProductSituationService;
 import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -14,6 +14,12 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductSituationService productSituationService;
+
+    @Autowired
+    private FactoryProduct factoryCreateProduct;
 
     @GetMapping
     public List<Product> getProducts () {
@@ -27,8 +33,8 @@ public class ProductController {
 
     @PostMapping
     public void postProduct(@RequestBody(required = false) DataStructure<String, Object> payload) throws Exception {
-        Product product = new Product();
-        productService.insert(product);
+        Product product = factoryCreateProduct.getInstance(payload);
+        //productService.insert(product);
     }
 
     @PutMapping("/{id}")

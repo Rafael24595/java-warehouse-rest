@@ -1,7 +1,10 @@
 package com.warehouse.app.beans.product.product;
 
 import com.warehouse.app.beans.WarehouseBean;
+import com.warehouse.app.beans.category.Category;
+import com.warehouse.app.beans.platform.Platform;
 import com.warehouse.app.beans.product.situation.ProductSituation;
+import com.warehouse.app.beans.user.User;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
@@ -11,9 +14,19 @@ import java.util.Date;
 @Table(name = "db_products", uniqueConstraints = {
         @UniqueConstraint(
                 name = "uc_products",
-                columnNames = {"id", "name", "version", "platform", "format", "region", "type"})
+                columnNames = {"id", "name", "version", "platform", "format", "region", "category"})
 })
 public class Product implements WarehouseBean<Product> {
+
+    public static final String NAME = "name";
+    public static final String VERSION = "version";
+    public static final String PLATFORM = "platform";
+    public static final String FORMAT = "format";
+    public static final String REGION = "region";
+    public static final String CATEGORY = "category";
+    public static final String DATE_ORIGEN = "date_origen";
+    public static final String USER_AUDIT = "user_audit";
+    public static final String SITUATION_FK = "situation_fk";
 
     // Base ID
     @Id
@@ -30,25 +43,28 @@ public class Product implements WarehouseBean<Product> {
     private Long id;
 
     // UK
-    @Column(name = "name", nullable = false)
+    @Column(name = NAME, nullable = false)
     private String name;
-    @Column(name = "version")
+    @Column(name = VERSION)
     private String version;
-    @Column(name = "platform", nullable = false)
-    private Long platform;
-    @Column(name = "format", nullable = false)
+    @JoinColumn(name = PLATFORM)
+    @OneToOne(fetch = FetchType.LAZY)
+    private Platform platform;
+    @Column(name = FORMAT, nullable = false)
     private String format;
-    @Column(name = "region", nullable = false)
+    @Column(name = REGION, nullable = false)
     private String region;
-    @Column(name = "type", nullable = false)
-    private Long type;
+    @JoinColumn(name = CATEGORY)
+    @OneToOne(fetch = FetchType.LAZY)
+    private Category category;
 
     // Misc
-    @Column(name = "date_origen", nullable = false)
+    @Column(name = DATE_ORIGEN, nullable = false)
     private Date dateOrigen;
-    @Column(name = "user_audit", nullable = false)
-    private Long userAudit;
-    @JoinColumn(name = "situation_fk")
+    @JoinColumn(name = USER_AUDIT)
+    @OneToOne(fetch = FetchType.LAZY)
+    private User userAudit;
+    @JoinColumn(name = SITUATION_FK)
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private ProductSituation situation;
 
@@ -79,11 +95,11 @@ public class Product implements WarehouseBean<Product> {
         this.version = version;
     }
 
-    public Long getPlatform() {
+    public Platform getPlatform() {
         return platform;
     }
 
-    public void setPlatform(Long platform) {
+    public void setPlatform(Platform platform) {
         this.platform = platform;
     }
 
@@ -103,12 +119,12 @@ public class Product implements WarehouseBean<Product> {
         this.region = region;
     }
 
-    public Long getType() {
-        return type;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setType(Long type) {
-        this.type = type;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Date getDateOrigen() {
@@ -119,11 +135,11 @@ public class Product implements WarehouseBean<Product> {
         this.dateOrigen = dateOrigen;
     }
 
-    public Long getUserAudit() {
+    public User getUserAudit() {
         return userAudit;
     }
 
-    public void setUserAudit(Long userAudit) {
+    public void setUserAudit(User userAudit) {
         this.userAudit = userAudit;
     }
 
