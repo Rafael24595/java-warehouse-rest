@@ -1,10 +1,12 @@
 package com.warehouse.app.beans.user;
 
+import com.warehouse.app.beans.WarehouseEntity;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "db_users")
-public class User {
+public class User implements WarehouseEntity<User> {
 
     @Id
     @SequenceGenerator(
@@ -19,4 +21,13 @@ public class User {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @Override
+    public User update(User entity) {
+        return null;
+    }
+
+    @Override
+    public User clone() {
+        return null;
+    }
 }

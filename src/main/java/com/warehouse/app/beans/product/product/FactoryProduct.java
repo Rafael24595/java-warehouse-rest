@@ -1,5 +1,6 @@
 package com.warehouse.app.beans.product.product;
 
+import com.warehouse.app.beans.WarehouseFactory;
 import com.warehouse.app.beans.category.Category;
 import com.warehouse.app.beans.platform.FactoryPlatform;
 import com.warehouse.app.beans.platform.Platform;
@@ -14,10 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Component
-public class FactoryProduct {
+public class FactoryProduct implements WarehouseFactory<Product> {
 
     @Autowired
     private ProductService service;
@@ -30,7 +32,13 @@ public class FactoryProduct {
     @Autowired
     private FactoryProductSituation factorySituation;
 
-    public Product getInstance(DataStructure<String, Object> dataStructure){
+    @Override
+    public Product getInstance(Long id) {
+        Optional<Product> product = service.get(id);
+        return product.get();
+    }
+
+    public Product getInstance(DataStructure<Object> dataStructure){
         Product product = new Product();
         Platform platform = parsePlatform(dataStructure);
         Category category = parseCategory(dataStructure);
@@ -54,21 +62,23 @@ public class FactoryProduct {
         return product;
     }
 
-    private Platform parsePlatform(DataStructure<String, Object> dataStructure) {
-        Long id_platform = dataStructure.getLongHard(Product.PLATFORM);
-        return factoryPlatform.getInstance(id_platform);
+    private Platform parsePlatform(DataStructure<Object> dataStructure) {
+        Long id = dataStructure.getLongHard(Product.PLATFORM);
+        return factoryPlatform.getInstance(id);
     }
 
-    private User parseUser(DataStructure<String, Object> dataStructure) {
-        return null;
+    private Category parseCategory(DataStructure<Object> dataStructure) {
+        Long id = dataStructure.getLongHard(Product.CATEGORY);
+        return factoryCategory.getInstance(id);
     }
 
-    private Category parseCategory(DataStructure<String, Object> dataStructure) {
-        return null;
+    private User parseUser(DataStructure<Object> dataStructure) {
+        Long id = dataStructure.getLongHard(Product.USER_AUDIT);
+        return factoryUser.getInstance(dataStructure);
     }
 
-    private ProductSituation parseSituation(DataStructure<String, Object> dataStructure) {
-        return null;
+    private ProductSituation parseSituation(DataStructure<Object> dataStructure) {
+        return factorySituation.getInstance(dataStructure);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.warehouse.app.beans.product.product;
 
-import com.warehouse.app.beans.WarehouseBean;
+import com.warehouse.app.beans.WarehouseEntity;
 import com.warehouse.app.beans.category.Category;
 import com.warehouse.app.beans.platform.Platform;
 import com.warehouse.app.beans.product.situation.ProductSituation;
@@ -16,7 +16,7 @@ import java.util.Date;
                 name = "uc_products",
                 columnNames = {"id", "name", "version", "platform", "format", "region", "category"})
 })
-public class Product implements WarehouseBean<Product> {
+public class Product implements WarehouseEntity<Product> {
 
     public static final String NAME = "name";
     public static final String VERSION = "version";

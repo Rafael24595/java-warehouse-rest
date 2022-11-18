@@ -1,10 +1,12 @@
 package com.warehouse.app.beans.platform;
 
+import com.warehouse.app.beans.WarehouseEntity;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "db_platforms")
-public class Platform {
+public class Platform implements WarehouseEntity<Platform> {
 
     @Id
     @SequenceGenerator(
@@ -22,4 +24,13 @@ public class Platform {
     private String name;
     private String owner;
 
+    @Override
+    public Platform update(Platform entity) {
+        return null;
+    }
+
+    @Override
+    public Platform clone() {
+        return null;
+    }
 }

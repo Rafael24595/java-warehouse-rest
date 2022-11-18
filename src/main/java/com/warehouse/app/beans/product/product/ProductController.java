@@ -32,13 +32,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public void postProduct(@RequestBody(required = false) DataStructure<String, Object> payload) throws Exception {
+    public void postProduct(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
         Product product = factoryCreateProduct.getInstance(payload);
-        //productService.insert(product);
+        productService.insert(product);
     }
 
     @PutMapping("/{id}")
-    public void putProduct(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<String, Object> payload) throws Exception {
+    public void putProduct(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
         Product product = new Product();
         productService.update(id, product);
     }

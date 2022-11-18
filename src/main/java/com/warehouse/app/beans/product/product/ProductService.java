@@ -1,5 +1,6 @@
 package com.warehouse.app.beans.product.product;
 
+import com.warehouse.app.beans.WarehouseService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class ProductService {
+public class ProductService implements WarehouseService<Product> {
 
     @Autowired
     private final ProductRepository productRepository;

@@ -3,7 +3,7 @@ package com.warehouse.app.structures;
 import java.io.Serializable;
 import java.util.*;
 
-public class DataStructure<K,V> extends HashMap<String,V> implements Map<String,V>, Cloneable, Serializable {
+public class DataStructure<V> extends HashMap<String,V> implements Map<String,V>, Cloneable, Serializable {
 
     private String getString(String key, boolean exception) throws IllegalArgumentException{
         V value = get(key);
