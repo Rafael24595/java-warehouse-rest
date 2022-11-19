@@ -5,6 +5,8 @@ import com.warehouse.app.beans.category.Category;
 import com.warehouse.app.beans.platform.FactoryPlatform;
 import com.warehouse.app.beans.platform.Platform;
 import com.warehouse.app.beans.category.FactoryCategory;
+import com.warehouse.app.beans.product.collection.Collection;
+import com.warehouse.app.beans.product.collection.FactoryCollection;
 import com.warehouse.app.beans.product.situation.FactoryProductSituation;
 import com.warehouse.app.beans.user.FactoryUser;
 import com.warehouse.app.beans.product.situation.ProductSituation;
@@ -31,6 +33,8 @@ public class FactoryProduct implements WarehouseFactory<Product> {
     private FactoryUser factoryUser;
     @Autowired
     private FactoryProductSituation factorySituation;
+    @Autowired
+    private FactoryCollection factoryCollection;
 
     @Override
     public Product getInstance(Long id) {
@@ -44,6 +48,7 @@ public class FactoryProduct implements WarehouseFactory<Product> {
         Category category = parseCategory(dataStructure);
         User user = parseUser(dataStructure);
         ProductSituation situation = parseSituation(dataStructure);
+        Collection collection = parseCollection(dataStructure);
 
         try {
             product.setName(dataStructure.getStringHard(Product.NAME));
@@ -79,6 +84,10 @@ public class FactoryProduct implements WarehouseFactory<Product> {
 
     private ProductSituation parseSituation(DataStructure<Object> dataStructure) {
         return factorySituation.getInstance(dataStructure);
+    }
+
+    private Collection parseCollection(DataStructure<Object> dataStructure) {
+        return factoryCollection.getInstance(dataStructure);
     }
 
 }

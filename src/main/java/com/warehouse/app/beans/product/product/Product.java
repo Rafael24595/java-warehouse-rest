@@ -3,6 +3,7 @@ package com.warehouse.app.beans.product.product;
 import com.warehouse.app.beans.WarehouseEntity;
 import com.warehouse.app.beans.category.Category;
 import com.warehouse.app.beans.platform.Platform;
+import com.warehouse.app.beans.product.collection.Collection;
 import com.warehouse.app.beans.product.situation.ProductSituation;
 import com.warehouse.app.beans.user.User;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 })
 public class Product implements WarehouseEntity<Product> {
 
+    public static final String ID = "id";
     public static final String NAME = "name";
     public static final String VERSION = "version";
     public static final String PLATFORM = "platform";
@@ -27,6 +29,7 @@ public class Product implements WarehouseEntity<Product> {
     public static final String DATE_ORIGEN = "date_origen";
     public static final String USER_AUDIT = "user_audit";
     public static final String SITUATION_FK = "situation_fk";
+    public static final String COLLECTION_FK = "collection_fk";
 
     // Base ID
     @Id
@@ -39,7 +42,7 @@ public class Product implements WarehouseEntity<Product> {
             strategy = GenerationType.SEQUENCE,
             generator = "product_secuence"
     )
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = ID, nullable = false, unique = true)
     private Long id;
 
     // UK
@@ -67,6 +70,10 @@ public class Product implements WarehouseEntity<Product> {
     @JoinColumn(name = SITUATION_FK)
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private ProductSituation situation;
+
+    @JoinColumn(name = COLLECTION_FK)
+    @OneToOne(fetch = FetchType.LAZY)
+    private Collection collection;
 
     public Product() {
     }
@@ -149,6 +156,14 @@ public class Product implements WarehouseEntity<Product> {
 
     public void setSituation(ProductSituation situation) {
         this.situation = situation;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
     }
 
     @Override
