@@ -12,11 +12,15 @@ import com.warehouse.app.beans.user.FactoryUser;
 import com.warehouse.app.beans.product.situation.ProductSituation;
 import com.warehouse.app.beans.user.User;
 import com.warehouse.app.structures.DataStructure;
+import com.warehouse.app.structures.ExceptionMessages;
+import com.warehouse.app.tools.MessageBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -39,15 +43,20 @@ public class FactoryProduct implements WarehouseFactory<Product> {
     @Override
     public Product getInstance(Long id) {
         Optional<Product> product = service.get(id);
+        if(product.isEmpty()){
+            String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "Product", id);
+            throw new NoSuchElementException(message);
+        }
         return product.get();
     }
 
     public Product getInstance(DataStructure<Object> dataStructure){
+        DataStructure situationStructure = dataStructure.getStructureHard(Product.SITUATION_FK);
         Product product = new Product();
         Platform platform = parsePlatform(dataStructure);
         Category category = parseCategory(dataStructure);
         User user = parseUser(dataStructure);
-        ProductSituation situation = parseSituation(dataStructure);
+        ProductSituation situation = parseSituation(situationStructure);
         Collection collection = parseCollection(dataStructure);
 
         try {
@@ -60,8 +69,10 @@ public class FactoryProduct implements WarehouseFactory<Product> {
             product.setDateOrigen(new Date(System.currentTimeMillis()));
             product.setUserAudit(user);
             product.setSituation(situation);
+            product.setCollection(collection);
         }catch (Exception e){
-
+            String message = MessageBuilder.build(ExceptionMessages.REQUEST.BAD_JSON_FORMAT, e.getMessage());
+            throw new IllegalArgumentException(message);
         }
 
         return product;
@@ -79,7 +90,7 @@ public class FactoryProduct implements WarehouseFactory<Product> {
 
     private User parseUser(DataStructure<Object> dataStructure) {
         Long id = dataStructure.getLongHard(Product.USER_AUDIT);
-        return factoryUser.getInstance(dataStructure);
+        return factoryUser.getInstance(id);
     }
 
     private ProductSituation parseSituation(DataStructure<Object> dataStructure) {
@@ -87,7 +98,8 @@ public class FactoryProduct implements WarehouseFactory<Product> {
     }
 
     private Collection parseCollection(DataStructure<Object> dataStructure) {
-        return factoryCollection.getInstance(dataStructure);
+        Long id = dataStructure.getLongHard(Product.COLLECTION_FK);
+        return factoryCollection.getInstance(id);
     }
 
 }

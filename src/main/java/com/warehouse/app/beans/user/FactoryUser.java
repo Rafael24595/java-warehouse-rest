@@ -1,10 +1,17 @@
 package com.warehouse.app.beans.user;
 
 import com.warehouse.app.beans.WarehouseFactory;
+import com.warehouse.app.beans.product.product.Product;
 import com.warehouse.app.structures.DataStructure;
+import com.warehouse.app.structures.ExceptionMessages;
+import com.warehouse.app.tools.MessageBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Component
@@ -14,14 +21,27 @@ public class FactoryUser implements WarehouseFactory<User> {
     private UserService service;
 
     public User getInstance(Long id){
-        return null;
+        Optional<User> user = service.get(id);
+        if(user.isEmpty()){
+            String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "User", id);
+            throw new NoSuchElementException(message);
+        }
+        return user.get();
     }
 
     public User getInstance(DataStructure<Object> dataStructure){
         User user = new User();
 
         try {
+            user.setNickName(dataStructure.getStringHard(User.NICKNAME));
+            user.setName(dataStructure.getStringHard(User.NAME));
+            user.setSurname1(dataStructure.getStringHard(User.SURNAME_1));
+            user.setSurname2(dataStructure.getStringHard(User.SURNAME_2));
+            user.setDateOrigen(new Date(System.currentTimeMillis()));
+            user.setLevel(dataStructure.getIntegerHard(User.LEVEL));
         }catch (Exception e){
+            String message = MessageBuilder.build(ExceptionMessages.REQUEST.BAD_JSON_FORMAT, e.getMessage());
+            throw new IllegalArgumentException(message);
         }
 
         return user;

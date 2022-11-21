@@ -15,7 +15,7 @@ import java.util.Date;
 @Table(name = "db_products", uniqueConstraints = {
         @UniqueConstraint(
                 name = "uc_products",
-                columnNames = {"id", "name", "version", "platform", "format", "region", "category"})
+                columnNames = {"name", "version", "platform", "format", "region", "category"})
 })
 public class Product implements WarehouseEntity<Product> {
 

@@ -1,6 +1,8 @@
 package com.warehouse.app.beans.product.product;
 
 import com.warehouse.app.beans.WarehouseService;
+import com.warehouse.app.structures.ExceptionMessages;
+import com.warehouse.app.tools.MessageBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,8 @@ public class ProductService implements WarehouseService<Product> {
 
     public Product update(Long id, Product productUpdate) throws Exception {
         if(!productRepository.existsById(id)){
-            throw new NoSuchElementException("TODO:___");
+            String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "Product", id);
+            throw new NoSuchElementException(message);
         }
         Product product = get(id).get();
         product.update(productUpdate);

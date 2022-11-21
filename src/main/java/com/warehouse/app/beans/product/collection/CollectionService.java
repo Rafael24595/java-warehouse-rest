@@ -1,7 +1,6 @@
 package com.warehouse.app.beans.product.collection;
 
 import com.warehouse.app.beans.WarehouseService;
-import com.warehouse.app.beans.product.product.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,12 +30,12 @@ public class CollectionService implements WarehouseService<Collection> {
     }
 
     @Override
-    public Collection update(Long id, Product productUpdate) throws Exception {
+    public Collection update(Long id, Collection collection) throws Exception {
         return null;
     }
 
     @Override
-    public void delete(Product product) {
+    public void delete(Collection collection) {
 
     }
 
