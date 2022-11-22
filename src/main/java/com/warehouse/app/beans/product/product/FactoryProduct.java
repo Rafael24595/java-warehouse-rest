@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ import java.util.Optional;
 public class FactoryProduct implements WarehouseFactory<Product> {
 
     @Autowired
-    private ProductService service;
+    private ProductRepository repository;
     @Autowired
     private FactoryPlatform factoryPlatform;
     @Autowired
@@ -42,7 +41,7 @@ public class FactoryProduct implements WarehouseFactory<Product> {
 
     @Override
     public Product getInstance(Long id) {
-        Optional<Product> product = service.get(id);
+        Optional<Product> product = repository.findById(id);
         if(product.isEmpty()){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "Product", id);
             throw new NoSuchElementException(message);

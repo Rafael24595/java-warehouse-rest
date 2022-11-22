@@ -16,10 +16,10 @@ import java.util.Optional;
 public class FactoryPlatform implements WarehouseFactory<Platform> {
 
     @Autowired
-    private PlatformService service;
+    private PlatformRepository repository;
 
     public Platform getInstance(Long id) {
-        Optional<Platform> platform = service.get(id);
+        Optional<Platform> platform = repository.findById(id);
         if(platform.isEmpty()){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "Platform", id);
             throw new NoSuchElementException(message);

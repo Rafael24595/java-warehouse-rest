@@ -1,10 +1,6 @@
 package com.warehouse.app.beans;
 
-import com.warehouse.app.beans.platform.Platform;
-import com.warehouse.app.beans.product.product.Product;
-
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public interface WarehouseService<T> {

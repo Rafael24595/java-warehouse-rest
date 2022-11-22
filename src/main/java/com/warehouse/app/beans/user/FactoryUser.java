@@ -1,7 +1,6 @@
 package com.warehouse.app.beans.user;
 
 import com.warehouse.app.beans.WarehouseFactory;
-import com.warehouse.app.beans.product.product.Product;
 import com.warehouse.app.structures.DataStructure;
 import com.warehouse.app.structures.ExceptionMessages;
 import com.warehouse.app.tools.MessageBuilder;
@@ -18,10 +17,10 @@ import java.util.Optional;
 public class FactoryUser implements WarehouseFactory<User> {
 
     @Autowired
-    private UserService service;
+    private UserRepository repository;
 
     public User getInstance(Long id){
-        Optional<User> user = service.get(id);
+        Optional<User> user = repository.findById(id);
         if(user.isEmpty()){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "User", id);
             throw new NoSuchElementException(message);

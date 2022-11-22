@@ -17,11 +17,11 @@ import java.util.Optional;
 public class FactoryCategory implements WarehouseFactory<Category> {
 
     @Autowired
-    private CategoryService service;
+    private CategoryRepository repository;
 
     @Override
     public Category getInstance(Long id) {
-        Optional<Category> category = service.get(id);
+        Optional<Category> category = repository.findById(id);
         if(category.isEmpty()){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "Category", id);
             throw new NoSuchElementException(message);

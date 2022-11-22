@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -21,13 +20,13 @@ import java.util.Optional;
 public class FactoryProductSituation implements WarehouseFactory<ProductSituation> {
 
     @Autowired
-    private ProductSituationService service;
+    private ProductSituationRepository repository;
     @Autowired
     private FactoryUser factoryUser;
 
     @Override
     public ProductSituation getInstance(Long id) {
-        Optional<ProductSituation> productSituation = service.get(id);
+        Optional<ProductSituation> productSituation = repository.findById(id);
         if(productSituation.isEmpty()){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "ProductSituation", id);
             throw new NoSuchElementException(message);
@@ -75,7 +74,7 @@ public class FactoryProductSituation implements WarehouseFactory<ProductSituatio
     }
 
     private Long getNextSituationNumber(Product product) {
-        Optional<ProductSituation> lastSituation = service.getLastSituation(product);
+        Optional<ProductSituation> lastSituation = repository.findFirstByProductOrderByNumberSituationDesc(product);
         if(lastSituation.isPresent())
             return lastSituation.get().getNumberSituation() + 1;
         return 1L;

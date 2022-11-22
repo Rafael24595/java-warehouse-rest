@@ -1,6 +1,5 @@
 package com.warehouse.app.beans.user;
 
-import com.warehouse.app.beans.product.product.Product;
 import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

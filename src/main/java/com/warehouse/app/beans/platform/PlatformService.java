@@ -1,7 +1,6 @@
 package com.warehouse.app.beans.platform;
 
 import com.warehouse.app.beans.WarehouseService;
-import com.warehouse.app.beans.product.product.Product;
 import com.warehouse.app.structures.ExceptionMessages;
 import com.warehouse.app.tools.MessageBuilder;
 import lombok.AllArgsConstructor;
