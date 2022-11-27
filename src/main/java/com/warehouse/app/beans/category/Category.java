@@ -13,13 +13,13 @@ public class Category implements WarehouseEntity<Category> {
 
     @Id
     @SequenceGenerator(
-            name = "category_secuence",
-            sequenceName = "product_secuence_name",
+            name = "category_sequence",
+            sequenceName = "category_sequence_name",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "category_secuence"
+            generator = "category_sequence"
     )
     @Column(name = ID, nullable = false, unique = true)
     private Long id;

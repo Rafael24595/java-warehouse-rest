@@ -3,6 +3,7 @@ package com.warehouse.app.beans.product.product;
 import com.warehouse.app.beans.product.situation.ProductSituationService;
 import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,15 +33,19 @@ public class ProductController {
     }
 
     @PostMapping
-    public void postProduct(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+    public ResponseEntity<Product> postProduct(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
         Product product = factoryCreateProduct.getInstance(payload);
-        productService.insert(product);
+        product = productService.insert(product);
+        product = factoryCreateProduct.getInstance(product.getId(), payload);
+        productSituationService.insert(product.getSituation());
+        return ResponseEntity.ok().body(product);
     }
 
     @PutMapping("/{id}")
-    public void putProduct(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        Product product = new Product();
-        productService.update(id, product);
+    public ResponseEntity<Product> putProduct(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+        Product product = factoryCreateProduct.getInstance(id, payload);
+        productSituationService.insert(product.getSituation());
+        return ResponseEntity.ok().body(product);
     }
 
     @DeleteMapping("/{id}")

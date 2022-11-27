@@ -49,13 +49,26 @@ public class FactoryProduct implements WarehouseFactory<Product> {
         return product.get();
     }
 
-    public Product getInstance(DataStructure<Object> dataStructure){
+    public Product getInstance(Long id, DataStructure<Object> dataStructure) {
+        Product product = getInstance(id);
         DataStructure situationStructure = dataStructure.getStructureHard(Product.SITUATION_FK);
+        ProductSituation situation = factorySituation.getInstance(situationStructure, product);
+
+        try {
+            product.setSituation(situation);
+        }catch (Exception e){
+            String message = MessageBuilder.build(ExceptionMessages.REQUEST.BAD_JSON_FORMAT, e.getMessage());
+            throw new IllegalArgumentException(message);
+        }
+
+        return product;
+    }
+
+    public Product getInstance(DataStructure<Object> dataStructure) {
         Product product = new Product();
         Platform platform = parsePlatform(dataStructure);
         Category category = parseCategory(dataStructure);
         User user = parseUser(dataStructure);
-        ProductSituation situation = parseSituation(situationStructure);
         Collection collection = parseCollection(dataStructure);
 
         try {
@@ -67,7 +80,6 @@ public class FactoryProduct implements WarehouseFactory<Product> {
             product.setCategory(category);
             product.setDateOrigen(new Date(System.currentTimeMillis()));
             product.setUserAudit(user);
-            product.setSituation(situation);
             product.setCollection(collection);
         }catch (Exception e){
             String message = MessageBuilder.build(ExceptionMessages.REQUEST.BAD_JSON_FORMAT, e.getMessage());
@@ -92,13 +104,9 @@ public class FactoryProduct implements WarehouseFactory<Product> {
         return factoryUser.getInstance(id);
     }
 
-    private ProductSituation parseSituation(DataStructure<Object> dataStructure) {
-        return factorySituation.getInstance(dataStructure);
-    }
-
     private Collection parseCollection(DataStructure<Object> dataStructure) {
         Long id = dataStructure.getLongHard(Product.COLLECTION_FK);
-        return factoryCollection.getInstance(id);
+        return id == null ? null : factoryCollection.getInstance(id);
     }
 
 }

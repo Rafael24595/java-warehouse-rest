@@ -14,16 +14,14 @@ public class Platform implements WarehouseEntity<Platform> {
 
     @Id
     @SequenceGenerator(
-            name = "platform_secuence",
-            sequenceName = "secuence_name",
+            name = "platform_sequence",
+            sequenceName = "platform_sequence_name",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "secuence_name"
+            generator = "platform_sequence_name"
     )
-
-    // Base ID
     @Column(name = ID, nullable = false, unique = true)
     private Long id;
     // UK

@@ -13,7 +13,7 @@
 					"name": "Get",
 					"item": [
 						{
-							"name": "GetPlatform",
+							"name": "GetPlatforms",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -145,7 +145,7 @@
 					"name": "Get",
 					"item": [
 						{
-							"name": "GetProduct",
+							"name": "GetProducts",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -195,7 +195,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"user_audit\": 1,\r\n    \"name\": \"test_1\",\r\n    \"version\":\"world\",\r\n    \"platform\": 1,\r\n    \"format\": \"blu-ray\",\r\n    \"region\": \"PAL\",\r\n    \"category\": 1,\r\n    \"situation_fk\": {\r\n        \"name_alternate\": \"prueba_1\",\r\n        \"description\": \"description test.\",\r\n        \"rating\": 5\r\n    }\r\n}",
+									"raw": "{\r\n    \"user_audit\": 1,\r\n    \"name\": \"test_1\",\r\n    \"version\":\"world\",\r\n    \"platform\": 1,\r\n    \"format\": \"blu-ray\",\r\n    \"region\": \"PAL\",\r\n    \"category\": 1,\r\n    \"situation_fk\": {\r\n        \"name_alternate\": \"prueba_1\",\r\n        \"description\": \"description test.\",\r\n        \"rating\": 5,\r\n        \"user_audit\": 1\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -211,6 +211,212 @@
 										"api",
 										"{{api_version}}",
 										"product"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Put",
+					"item": [
+						{
+							"name": "PutProduct",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"situation_fk\": {\r\n        \"name_alternate\": \"prueba_1\",\r\n        \"description\": \"description test.\",\r\n        \"rating\": 5,\r\n        \"user_audit\": 1\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/product/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"product",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "DeleteProduct",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/product/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"product",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "GetUsers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUsersById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/user/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "GetCategories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/category",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCategoryById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/category/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Collection",
+			"item": [
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "GetCollections",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/collection",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"collection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCollectionById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/collection/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"collection",
+										"1"
 									]
 								}
 							},

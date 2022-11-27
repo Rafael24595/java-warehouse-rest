@@ -34,13 +34,13 @@ public class Product implements WarehouseEntity<Product> {
     // Base ID
     @Id
     @SequenceGenerator(
-            name = "product_secuence",
-            sequenceName = "product_secuence_name",
+            name = "product_sequence",
+            sequenceName = "product_sequence_name",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "product_secuence"
+            generator = "product_sequence"
     )
     @Column(name = ID, nullable = false, unique = true)
     private Long id;
@@ -48,31 +48,31 @@ public class Product implements WarehouseEntity<Product> {
     // UK
     @Column(name = NAME, nullable = false)
     private String name;
-    @Column(name = VERSION)
+    @Column(name = VERSION, nullable = false)
     private String version;
-    @JoinColumn(name = PLATFORM)
-    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = PLATFORM, nullable = false)
+    @OneToOne(fetch = FetchType.EAGER)
     private Platform platform;
     @Column(name = FORMAT, nullable = false)
     private String format;
     @Column(name = REGION, nullable = false)
     private String region;
-    @JoinColumn(name = CATEGORY)
-    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = CATEGORY, nullable = false)
+    @OneToOne(fetch = FetchType.EAGER)
     private Category category;
 
     // Misc
     @Column(name = DATE_ORIGEN, nullable = false)
     private Date dateOrigen;
-    @JoinColumn(name = USER_AUDIT)
-    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = USER_AUDIT, nullable = false)
+    @OneToOne(fetch = FetchType.EAGER)
     private User userAudit;
     @JoinColumn(name = SITUATION_FK)
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private ProductSituation situation;
 
     @JoinColumn(name = COLLECTION_FK)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Collection collection;
 
     public Product() {

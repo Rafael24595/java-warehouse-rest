@@ -19,23 +19,23 @@ public class User implements WarehouseEntity<User> {
 
     @Id
     @SequenceGenerator(
-            name = "user_secuence",
-            sequenceName = "product_secuence_name",
+            name = "user_sequence",
+            sequenceName = "user_sequence_name",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "user_secuence"
+            generator = "user_sequence"
     )
-    @Column(name = ID, nullable = false, unique = true)
+    @Column(name = ID, nullable = false)
     private Long id;
     @Column(name = NICKNAME, nullable = false, unique = true)
     private String nickName;
-    @Column(name = NAME, nullable = false)
+    @Column(name = NAME)
     private String name;
-    @Column(name = SURNAME_1, nullable = false)
+    @Column(name = SURNAME_1)
     private String surname1;
-    @Column(name = SURNAME_2, nullable = false)
+    @Column(name = SURNAME_2)
     private String surname2;
     @Column(name = DATE_ORIGEN, nullable = false)
     private Date dateOrigen;

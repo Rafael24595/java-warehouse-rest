@@ -1,5 +1,6 @@
 package com.warehouse.app.beans.product.situation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.warehouse.app.beans.WarehouseEntity;
 import com.warehouse.app.beans.product.product.Product;
 import com.warehouse.app.beans.user.User;
@@ -32,20 +33,20 @@ public class ProductSituation implements WarehouseEntity<ProductSituation> {
     public static final String IMAGE_02 = "image_02";
     public static final String IMAGE_03 = "image_03";
     public static final String DATE_SITUATION = "date_situation";
-    public static final String USER_SITUATION = "user_situation";
+    public static final String USER_AUDIT = "user_audit";
     public static final String COMMENT = "comment";
 
 
     // Base ID
     @Id
     @SequenceGenerator(
-            name = "product_situation_secuence",
-            sequenceName = "secuence_name",
+            name = "product_situation_sequence",
+            sequenceName = "product_situation_sequence_name",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "secuence_name"
+            generator = "product_situation_sequence_name"
     )
     @Column(name = ID, nullable = false, unique = true)
     private Long id;
@@ -53,6 +54,7 @@ public class ProductSituation implements WarehouseEntity<ProductSituation> {
     // UK
     @JoinColumn(name = PRODUCT_FK, nullable = false)
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore()
     private Product product;
     @Column(name = NUMBER_SITUATION, nullable = false)
     private Long numberSituation;
@@ -88,10 +90,10 @@ public class ProductSituation implements WarehouseEntity<ProductSituation> {
     private String image03;
 
     // Misc
-    @Column(name = DATE_SITUATION)
+    @Column(name = DATE_SITUATION, nullable = false)
     private Date dateSituation;
-    @JoinColumn(name = USER_SITUATION)
-    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = USER_AUDIT, nullable = false)
+    @OneToOne(fetch = FetchType.EAGER)
     private User userSituation;
     @Column(name = COMMENT)
     private String comment;

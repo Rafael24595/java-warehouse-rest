@@ -12,13 +12,13 @@ public class Collection implements WarehouseEntity<Collection> {
 
     @Id
     @SequenceGenerator(
-            name = "collection_secuence",
-            sequenceName = "product_secuence_name",
+            name = "collection_sequence",
+            sequenceName = "collection_sequence_name",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "collection_secuence"
+            generator = "collection_sequence"
     )
     @Column(name = ID, nullable = false, unique = true)
     private Long id;
