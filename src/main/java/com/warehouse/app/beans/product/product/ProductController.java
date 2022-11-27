@@ -1,6 +1,5 @@
 package com.warehouse.app.beans.product.product;
 
-import com.warehouse.app.beans.product.situation.ProductSituationService;
 import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,43 +13,35 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
-
+    private FactoryManageProduct factory;
     @Autowired
-    private ProductSituationService productSituationService;
-
-    @Autowired
-    private FactoryProduct factoryCreateProduct;
+    private ProductService service;
 
     @GetMapping
     public List<Product> getProducts () {
-        return productService.getAll();
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
     public Optional<Product> getProduct (@PathVariable("id") Long id) {
-        return productService.get(id);
+        return service.get(id);
     }
 
     @PostMapping
     public ResponseEntity<Product> postProduct(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        Product product = factoryCreateProduct.getInstance(payload);
-        product = productService.insert(product);
-        product = factoryCreateProduct.getInstance(product.getId(), payload);
-        productSituationService.insert(product.getSituation());
+        Product product = factory.saveProduct(payload);
         return ResponseEntity.ok().body(product);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> putProduct(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        Product product = factoryCreateProduct.getInstance(id, payload);
-        productSituationService.insert(product.getSituation());
+        Product product = factory.updateProduct(id, payload);
         return ResponseEntity.ok().body(product);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
-        productService.delete(id);
+        service.delete(id);
     }
 
 }

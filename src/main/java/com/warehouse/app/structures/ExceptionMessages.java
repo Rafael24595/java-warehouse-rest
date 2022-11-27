@@ -6,6 +6,7 @@ public class ExceptionMessages {
 
     public class STRUCTURE {
         public static String INVALID_TYPE_ARGUMENT = "Argument \"" + MessageBuilder.aux(1) + "\" has been found, but it's format does not match with " + MessageBuilder.aux(2) + " type";
+        public static String INVALID_SITUATION_FK = "Invalid foreign key reference. Expected \" " + MessageBuilder.aux(1) + "\" but got \"" + MessageBuilder.aux(2) + "\"";
     }
 
     public class REQUEST {

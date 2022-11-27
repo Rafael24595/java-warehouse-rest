@@ -6,11 +6,13 @@ import com.warehouse.app.beans.platform.Platform;
 import com.warehouse.app.beans.product.collection.Collection;
 import com.warehouse.app.beans.product.situation.ProductSituation;
 import com.warehouse.app.beans.user.User;
+import lombok.AllArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Date;
 
+@AllArgsConstructor
 @Entity
 @Table(name = "db_products", uniqueConstraints = {
         @UniqueConstraint(
@@ -173,6 +175,17 @@ public class Product implements WarehouseEntity<Product> {
 
     @Override
     public Product clone() {
-        return null;
+        return new Product(
+                getId(),
+                getName(),
+                getVersion(),
+                getPlatform(),
+                getFormat(),
+                getRegion(),
+                getCategory(),
+                getDateOrigen(),
+                getUserAudit(),
+                getSituation(),
+                getCollection());
     }
 }

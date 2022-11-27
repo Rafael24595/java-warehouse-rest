@@ -109,4 +109,8 @@ public class FactoryProduct implements WarehouseFactory<Product> {
         return id == null ? null : factoryCollection.getInstance(id);
     }
 
+    protected ProductRepository getRepository() {
+        return this.repository;
+    }
+
 }
