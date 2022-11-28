@@ -13,27 +13,17 @@ import com.warehouse.app.tools.MessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 @Component
-public class FactoryManageProduct extends FactoryProduct {
+public class FactoryModifyProduct extends FactoryProduct {
 
     @Autowired
     private ProductSituationRepository situationRepository;
 
-    public FactoryManageProduct(ProductRepository repository, FactoryPlatform factoryPlatform, FactoryCategory factoryCategory, FactoryUser factoryUser, FactoryProductSituation factorySituation, FactoryCollection factoryCollection) {
+    public FactoryModifyProduct(ProductRepository repository, FactoryPlatform factoryPlatform, FactoryCategory factoryCategory, FactoryUser factoryUser, FactoryProductSituation factorySituation, FactoryCollection factoryCollection) {
         super(repository, factoryPlatform, factoryCategory, factoryUser, factorySituation, factoryCollection);
     }
 
-    public Product saveProduct(DataStructure<Object> dataStructure) {
-        ProductRepository repository = getRepository();
-        Product product = getInstance(dataStructure);
-        product = repository.save(product);
-        product = getInstance(product.getId(), dataStructure);
-        situationRepository.save(product.getSituation());
-        return product;
-    }
-
-    public Product updateProduct(Long id, DataStructure<Object> dataStructure) {
+    public Product update(Long id, DataStructure<Object> dataStructure) {
         Product oldProduct = getInstance(id);
         ProductSituation oldSituation = oldProduct.getSituation();
         Product newProduct = getInstance(id, dataStructure);

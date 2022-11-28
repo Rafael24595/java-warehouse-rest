@@ -2,6 +2,7 @@ package com.warehouse.app.beans.category;
 
 import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,15 +28,17 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void postCategory(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+    public ResponseEntity<Category> postCategory(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
         Category category = factory.getInstance(payload);
-        service.insert(category);
+        category = service.insert(category);
+        return ResponseEntity.ok().body(category);
     }
 
     @PutMapping("/{id}")
-    public void putCategory(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        Category category = new Category();
-        service.update(id, category);
+    public ResponseEntity<Category> putCategory(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+        Category category = factory.getInstance(payload);
+        category = service.update(id, category);
+        return ResponseEntity.ok().body(category);
     }
 
     @DeleteMapping("/{id}")

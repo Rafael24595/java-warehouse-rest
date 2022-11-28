@@ -94,15 +94,24 @@
 							"request": {
 								"method": "PUT",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Xbox Series S\",\r\n    \"owner\": \"Microsoft\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{base_url}}/api/{{api_version}}/user/1",
+									"raw": "{{base_url}}/api/{{api_version}}/platform/1",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"{{api_version}}",
-										"user",
+										"platform",
 										"1"
 									]
 								}
@@ -120,14 +129,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/{{api_version}}/user/1",
+									"raw": "{{base_url}}/api/{{api_version}}/platform/1",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"{{api_version}}",
-										"user",
+										"platform",
 										"1"
 									]
 								}
@@ -228,7 +237,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": 1,\r\n    \"situation_fk\": {\r\n        \"name_alternate\": \"prueba_1\",\r\n        \"description\": \"description test.\",\r\n        \"rating\": 5,\r\n        \"user_audit\": 1\r\n    }\r\n}",
+									"raw": "{\r\n    \"situation_fk\": {\r\n        \"name_alternate\": \"prueba_2\",\r\n        \"description\": \"description test.\",\r\n        \"rating\": 5,\r\n        \"user_audit\": 1\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -325,6 +334,98 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Post",
+					"item": [
+						{
+							"name": "PostUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickname\": \"admin\",\r\n    \"password\": \"admin\",\r\n    \"name\": \"_admin\",\r\n    \"surname_1\": \"100\",\r\n    \"level\": \"100\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Put",
+					"item": [
+						{
+							"name": "PutUser",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"1234\",\r\n    \"name\": \"_admin\",\r\n    \"surname_1\": \"0\",\r\n    \"level\": \"0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/user/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "DeleteUser",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/user/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -357,6 +458,98 @@
 							"name": "GetCategoryById",
 							"request": {
 								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/category/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Post",
+					"item": [
+						{
+							"name": "PostCategory",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"DVD\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/category",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"category"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Put",
+					"item": [
+						{
+							"name": "PutCategory",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"DVD-BR\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/category/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "DeleteCategory",
+							"request": {
+								"method": "DELETE",
 								"header": [],
 								"url": {
 									"raw": "{{base_url}}/api/{{api_version}}/category/1",

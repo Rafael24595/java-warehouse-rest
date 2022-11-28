@@ -2,6 +2,7 @@ package com.warehouse.app.beans.platform;
 
 import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,15 +28,17 @@ public class PlatformController {
     }
 
     @PostMapping
-    public void postPlatform(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+    public ResponseEntity<Platform> postPlatform(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
         Platform platform = factory.getInstance(payload);
         service.insert(platform);
+        return ResponseEntity.ok().body(platform);
     }
 
     @PutMapping("/{id}")
-    public void putPlatform(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        Platform platform = new Platform();
-        service.update(id, platform);
+    public ResponseEntity<Platform> putPlatform(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+        Platform platform = factory.getInstance(payload);
+        platform = service.update(id, platform);
+        return ResponseEntity.ok().body(platform);
     }
 
     @DeleteMapping("/{id}")

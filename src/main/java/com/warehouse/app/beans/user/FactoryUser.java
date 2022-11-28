@@ -33,10 +33,12 @@ public class FactoryUser implements WarehouseFactory<User> {
 
         try {
             user.setNickName(dataStructure.getStringHard(User.NICKNAME));
+            user.setPassword("******"); //TODO: Encrypt
             user.setName(dataStructure.getStringHard(User.NAME));
             user.setSurname1(dataStructure.getStringHard(User.SURNAME_1));
             user.setSurname2(dataStructure.getStringHard(User.SURNAME_2));
             user.setDateOrigen(new Date(System.currentTimeMillis()));
+            user.setDateModify(new Date(System.currentTimeMillis()));
             user.setLevel(dataStructure.getIntegerHard(User.LEVEL));
         }catch (Exception e){
             String message = MessageBuilder.build(ExceptionMessages.REQUEST.BAD_JSON_FORMAT, e.getMessage());

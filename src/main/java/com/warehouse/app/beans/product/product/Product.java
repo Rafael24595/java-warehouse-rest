@@ -7,6 +7,8 @@ import com.warehouse.app.beans.product.collection.Collection;
 import com.warehouse.app.beans.product.situation.ProductSituation;
 import com.warehouse.app.beans.user.User;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Entity;
 import javax.persistence.*;

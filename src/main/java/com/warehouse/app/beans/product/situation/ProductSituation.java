@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.warehouse.app.beans.WarehouseEntity;
 import com.warehouse.app.beans.product.product.Product;
 import com.warehouse.app.beans.user.User;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -54,6 +56,7 @@ public class ProductSituation implements WarehouseEntity<ProductSituation> {
     // UK
     @JoinColumn(name = PRODUCT_FK, nullable = false)
     @OneToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore()
     private Product product;
     @Column(name = NUMBER_SITUATION, nullable = false)

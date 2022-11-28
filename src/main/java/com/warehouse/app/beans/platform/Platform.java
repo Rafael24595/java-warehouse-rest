@@ -22,7 +22,7 @@ public class Platform implements WarehouseEntity<Platform> {
             strategy = GenerationType.SEQUENCE,
             generator = "platform_sequence_name"
     )
-    @Column(name = ID, nullable = false, unique = true)
+    @Column(name = ID, nullable = false)
     private Long id;
     // UK
     @Column(name = NAME, nullable = false, unique = true)
@@ -55,8 +55,10 @@ public class Platform implements WarehouseEntity<Platform> {
     }
 
     @Override
-    public Platform update(Platform entity) {
-        return null;
+    public Platform update(Platform platform) {
+        setName(platform.getName());
+        setOwner(platform.getName());
+        return this;
     }
 
     @Override

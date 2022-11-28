@@ -21,7 +21,7 @@ public class Category implements WarehouseEntity<Category> {
             strategy = GenerationType.SEQUENCE,
             generator = "category_sequence"
     )
-    @Column(name = ID, nullable = false, unique = true)
+    @Column(name = ID, nullable = false)
     private Long id;
     @Column(name = NAME, nullable = false, unique = true)
     private String name;
@@ -43,8 +43,9 @@ public class Category implements WarehouseEntity<Category> {
     }
 
     @Override
-    public Category update(Category entity) {
-        return null;
+    public Category update(Category category) {
+        setName(category.getName());
+        return this;
     }
 
     @Override

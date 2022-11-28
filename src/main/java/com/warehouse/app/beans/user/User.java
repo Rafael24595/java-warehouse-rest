@@ -11,10 +11,12 @@ public class User implements WarehouseEntity<User> {
 
     public static final String ID = "id";
     public static final String NICKNAME = "nickname";
+    public static final String PASSWORD = "password";
     public static final String NAME = "name";
     public static final String SURNAME_1 = "surname_1";
     public static final String SURNAME_2 = "surname_2";
     public static final String DATE_ORIGEN = "date_origen";
+    public static final String DATE_MODIFY = "date_modify";
     public static final String LEVEL = "level";
 
     @Id
@@ -31,6 +33,8 @@ public class User implements WarehouseEntity<User> {
     private Long id;
     @Column(name = NICKNAME, nullable = false, unique = true)
     private String nickName;
+    @Column(name = PASSWORD, nullable = false)
+    private String password;
     @Column(name = NAME)
     private String name;
     @Column(name = SURNAME_1)
@@ -39,6 +43,8 @@ public class User implements WarehouseEntity<User> {
     private String surname2;
     @Column(name = DATE_ORIGEN, nullable = false)
     private Date dateOrigen;
+    @Column(name = DATE_MODIFY, nullable = false)
+    private Date dateModify;
     @Column(name = LEVEL, nullable = false)
     private Integer level;
 
@@ -56,6 +62,14 @@ public class User implements WarehouseEntity<User> {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -90,6 +104,14 @@ public class User implements WarehouseEntity<User> {
         this.dateOrigen = dateOrigen;
     }
 
+    public Date getDateModify() {
+        return dateModify;
+    }
+
+    public void setDateModify(Date dateModify) {
+        this.dateModify = dateModify;
+    }
+
     public Integer getLevel() {
         return level;
     }
@@ -99,8 +121,14 @@ public class User implements WarehouseEntity<User> {
     }
 
     @Override
-    public User update(User entity) {
-        return null;
+    public User update(User user) {
+        setPassword(user.getPassword());
+        setName(user.getName());
+        setSurname1(user.getSurname1());
+        setSurname2(user.getSurname2());
+        setDateModify(user.getDateModify());
+        setLevel(user.getLevel());
+        return this;
     }
 
     @Override

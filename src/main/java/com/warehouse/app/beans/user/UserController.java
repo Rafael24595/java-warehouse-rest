@@ -2,6 +2,7 @@ package com.warehouse.app.beans.user;
 
 import com.warehouse.app.structures.DataStructure;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,15 +28,17 @@ public class UserController {
     }
 
     @PostMapping
-    public void postUser(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+    public ResponseEntity<User> postUser(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
         User user = factory.getInstance(payload);
-        service.insert(user);
+        user = service.insert(user);
+        return ResponseEntity.ok().body(user);
     }
 
     @PutMapping("/{id}")
-    public void putUser(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        User user = new User();
-        service.update(id, user);
+    public ResponseEntity<User> putUser(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
+        User user = factory.getInstance(payload);
+        user = service.update(id, user);
+        return ResponseEntity.ok().body(user);
     }
 
     @DeleteMapping("/{id}")

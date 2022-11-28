@@ -13,7 +13,11 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private FactoryManageProduct factory;
+    private FactoryCreateProduct factoryCreate;
+
+    @Autowired
+    private FactoryModifyProduct factoryModify;
+
     @Autowired
     private ProductService service;
 
@@ -29,13 +33,13 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> postProduct(@RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        Product product = factory.saveProduct(payload);
+        Product product = factoryCreate.save(payload);
         return ResponseEntity.ok().body(product);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> putProduct(@PathVariable("id") Long id, @RequestBody(required = false) DataStructure<Object> payload) throws Exception {
-        Product product = factory.updateProduct(id, payload);
+        Product product = factoryModify.update(id, payload);
         return ResponseEntity.ok().body(product);
     }
 
