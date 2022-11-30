@@ -10,11 +10,13 @@ import com.warehouse.app.domain.product.product.Product;
 import com.warehouse.app.repository.product.product.ProductRepository;
 import com.warehouse.app.domain.DataMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class FactoryCreateProduct extends FactoryProduct {
+@Qualifier("Default_FactoryCreateProduct")
+public class FactoryCreateProduct extends FactoryProduct implements IFactoryCreateProduct {
 
     @Autowired
     private ProductSituationRepository situationRepository;

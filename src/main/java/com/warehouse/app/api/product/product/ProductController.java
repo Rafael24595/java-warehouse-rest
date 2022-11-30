@@ -3,9 +3,12 @@ package com.warehouse.app.api.product.product;
 import com.warehouse.app.factory.product.product.FactoryCreateProduct;
 import com.warehouse.app.factory.product.product.FactoryModifyProduct;
 import com.warehouse.app.domain.product.product.Product;
+import com.warehouse.app.factory.product.product.IFactoryCreateProduct;
+import com.warehouse.app.factory.product.product.IFactoryModifyProduct;
 import com.warehouse.app.service.product.product.ProductService;
 import com.warehouse.app.domain.DataMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +20,12 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private FactoryCreateProduct factoryCreate;
+    @Qualifier("Default_FactoryCreateProduct")
+    private IFactoryCreateProduct factoryCreate;
 
     @Autowired
-    private FactoryModifyProduct factoryModify;
+    @Qualifier("Default_FactoryModifyProduct")
+    private IFactoryModifyProduct factoryModify;
 
     @Autowired
     private ProductService service;

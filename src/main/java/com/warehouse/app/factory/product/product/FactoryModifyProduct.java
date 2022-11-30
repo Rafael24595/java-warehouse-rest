@@ -13,10 +13,12 @@ import com.warehouse.app.domain.DataMap;
 import com.warehouse.app.constant.ExceptionMessages;
 import com.warehouse.app.tools.MessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FactoryModifyProduct extends FactoryProduct {
+@Qualifier("Default_FactoryModifyProduct")
+public class FactoryModifyProduct extends FactoryProduct implements IFactoryModifyProduct {
 
     @Autowired
     private ProductSituationRepository situationRepository;
@@ -38,7 +40,7 @@ public class FactoryModifyProduct extends FactoryProduct {
         return newProduct;
     }
 
-    public boolean compareSituations(ProductSituation situationA, ProductSituation situationB) {
+    private boolean compareSituations(ProductSituation situationA, ProductSituation situationB) {
         Long aProductFk = situationA.getProduct().getId();
         Long bProductFk = situationB.getProduct().getId();
         if(aProductFk != bProductFk){
