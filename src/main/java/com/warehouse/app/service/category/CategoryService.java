@@ -1,5 +1,7 @@
 package com.warehouse.app.service.category;
 
+import com.warehouse.app.domain.DataMap;
+import com.warehouse.app.factory.category.FactoryCategory;
 import com.warehouse.app.service.WarehouseService;
 import com.warehouse.app.domain.category.Category;
 import com.warehouse.app.repository.category.CategoryRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class CategoryService implements WarehouseService<Category> {
 
     @Autowired
+    private FactoryCategory factory;
+    @Autowired
     private CategoryRepository repository;
 
     @Override
@@ -31,16 +35,18 @@ public class CategoryService implements WarehouseService<Category> {
     }
 
     @Override
-    public Category insert(Category category) {
+    public Category insert(DataMap<Object> payload) {
+        Category category = factory.getInstance(payload);
         return repository.save(category);
     }
 
     @Override
-    public Category update(Long id, Category categoryUpdate) throws Exception {
+    public Category update(Long id, DataMap<Object> payload) throws Exception {
         if(!repository.existsById(id)){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "Product", id);
             throw new NoSuchElementException(message);
         }
+        Category categoryUpdate = factory.getInstance(payload);
         Category category = get(id).get();
         category.update(categoryUpdate);
         return repository.save(category);

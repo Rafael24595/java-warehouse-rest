@@ -1,5 +1,7 @@
 package com.warehouse.app.service.product.collection;
 
+import com.warehouse.app.domain.DataMap;
+import com.warehouse.app.factory.product.collection.FactoryCollection;
 import com.warehouse.app.service.WarehouseService;
 import com.warehouse.app.domain.product.collection.Collection;
 import com.warehouse.app.repository.product.collection.CollectionRepository;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class CollectionService implements WarehouseService<Collection> {
 
     @Autowired
+    private FactoryCollection factory;
+    @Autowired
     private CollectionRepository repository;
     @Override
     public List<Collection> getAll() {
@@ -27,12 +31,13 @@ public class CollectionService implements WarehouseService<Collection> {
     }
 
     @Override
-    public Collection insert(Collection entity) {
-        return null;
+    public Collection insert(DataMap<Object> payload) {
+        Collection collection = factory.getInstance(payload);
+        return repository.save(collection);
     }
 
     @Override
-    public Collection update(Long id, Collection collection) throws Exception {
+    public Collection update(Long id, DataMap<Object> payload) throws Exception {
         return null;
     }
 

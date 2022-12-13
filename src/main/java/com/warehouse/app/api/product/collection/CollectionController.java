@@ -2,7 +2,6 @@ package com.warehouse.app.api.product.collection;
 
 import com.warehouse.app.domain.product.collection.Collection;
 import com.warehouse.app.service.product.collection.CollectionService;
-import com.warehouse.app.factory.product.collection.FactoryCollection;
 import com.warehouse.app.domain.DataMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,6 @@ public class CollectionController {
 
     @Autowired
     private CollectionService service;
-    @Autowired
-    private FactoryCollection factory;
 
     @GetMapping
     public List<Collection> getCollections () {
@@ -31,14 +28,12 @@ public class CollectionController {
 
     @PostMapping
     public void postCollection(@RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        Collection collection = factory.getInstance(payload);
-        service.insert(collection);
+        service.insert(payload);
     }
 
     @PutMapping("/{id}")
     public void putCollection(@PathVariable("id") Long id, @RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        Collection collection = new Collection();
-        service.update(id, collection);
+        service.update(id, payload);
     }
 
     @DeleteMapping("/{id}")

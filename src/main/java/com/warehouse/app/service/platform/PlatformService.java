@@ -1,5 +1,7 @@
 package com.warehouse.app.service.platform;
 
+import com.warehouse.app.domain.DataMap;
+import com.warehouse.app.factory.platform.FactoryPlatform;
 import com.warehouse.app.service.WarehouseService;
 import com.warehouse.app.domain.platform.Platform;
 import com.warehouse.app.repository.platform.PlatformRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class PlatformService implements WarehouseService<Platform> {
 
     @Autowired
+    private FactoryPlatform factory;
+    @Autowired
     private final PlatformRepository repository;
 
     @Override
@@ -30,16 +34,18 @@ public class PlatformService implements WarehouseService<Platform> {
     }
 
     @Override
-    public Platform insert(Platform platform) {
+    public Platform insert(DataMap<Object> payload) {
+        Platform platform = factory.getInstance(payload);
         return repository.save(platform);
     }
 
     @Override
-    public Platform update(Long id, Platform productUpdate) throws Exception {
+    public Platform update(Long id, DataMap<Object> payload) throws Exception {
         if(!repository.existsById(id)){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "Platform", id);
             throw new NoSuchElementException(message);
         }
+        Platform productUpdate = factory.getInstance(payload);
         Platform platform = get(id).get();
         platform.update(productUpdate);
         return repository.save(platform);

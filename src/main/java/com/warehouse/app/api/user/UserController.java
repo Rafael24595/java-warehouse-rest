@@ -1,6 +1,5 @@
 package com.warehouse.app.api.user;
 
-import com.warehouse.app.factory.user.FactoryUser;
 import com.warehouse.app.domain.user.User;
 import com.warehouse.app.service.user.UserService;
 import com.warehouse.app.domain.DataMap;
@@ -17,8 +16,6 @@ public class UserController {
 
     @Autowired
     private UserService service;
-    @Autowired
-    private FactoryUser factory;
 
     @GetMapping
     public List<User> getUser () {
@@ -32,15 +29,13 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> postUser(@RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        User user = factory.getInstance(payload);
-        user = service.insert(user);
+        User user = service.insert(payload);
         return ResponseEntity.ok().body(user);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> putUser(@PathVariable("id") Long id, @RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        User user = factory.getInstance(payload);
-        user = service.update(id, user);
+        User user = service.update(id, payload);
         return ResponseEntity.ok().body(user);
     }
 

@@ -2,7 +2,6 @@ package com.warehouse.app.api.category;
 
 import com.warehouse.app.domain.category.Category;
 import com.warehouse.app.service.category.CategoryService;
-import com.warehouse.app.factory.category.FactoryCategory;
 import com.warehouse.app.domain.DataMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryService service;
-    @Autowired
-    private FactoryCategory factory;
 
     @GetMapping
     public List<Category> getCategories () {
@@ -32,15 +29,13 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Category> postCategory(@RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        Category category = factory.getInstance(payload);
-        category = service.insert(category);
+        Category category = service.insert(payload);
         return ResponseEntity.ok().body(category);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> putCategory(@PathVariable("id") Long id, @RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        Category category = factory.getInstance(payload);
-        category = service.update(id, category);
+        Category category = service.update(id, payload);
         return ResponseEntity.ok().body(category);
     }
 

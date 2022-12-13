@@ -1,5 +1,7 @@
 package com.warehouse.app.service.user;
 
+import com.warehouse.app.domain.DataMap;
+import com.warehouse.app.factory.user.FactoryUser;
 import com.warehouse.app.service.WarehouseService;
 import com.warehouse.app.domain.user.User;
 import com.warehouse.app.repository.user.UserRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class UserService implements WarehouseService<User> {
 
     @Autowired
+    private FactoryUser factory;
+    @Autowired
     private UserRepository repository;
 
     @Override
@@ -31,16 +35,18 @@ public class UserService implements WarehouseService<User> {
     }
 
     @Override
-    public User insert(User user) {
+    public User insert(DataMap<Object> payload) {
+        User user = factory.getInstance(payload);
         return repository.save(user);
     }
 
     @Override
-    public User update(Long id, User userUpdate) throws Exception {
+    public User update(Long id, DataMap<Object> payload) throws Exception {
         if(!repository.existsById(id)){
             String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "User", id);
             throw new NoSuchElementException(message);
         }
+        User userUpdate = factory.getInstance(payload);
         User user = get(id).get();
         user.update(userUpdate);
         return repository.save(user);

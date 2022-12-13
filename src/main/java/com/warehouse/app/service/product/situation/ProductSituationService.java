@@ -1,17 +1,15 @@
 package com.warehouse.app.service.product.situation;
 
+import com.warehouse.app.domain.DataMap;
 import com.warehouse.app.service.WarehouseService;
 import com.warehouse.app.domain.product.product.Product;
 import com.warehouse.app.domain.product.situation.ProductSituation;
 import com.warehouse.app.repository.product.situation.ProductSituationRepository;
-import com.warehouse.app.constant.ExceptionMessages;
-import com.warehouse.app.tools.MessageBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -40,19 +38,13 @@ public class ProductSituationService implements WarehouseService<ProductSituatio
     }
 
     @Override
-    public ProductSituation insert(ProductSituation productSituation) {
-        return repository.save(productSituation);
+    public ProductSituation insert(DataMap<Object> payload) {
+        return null;
     }
 
     @Override
-    public ProductSituation update(Long id, ProductSituation productSituationUpdate) throws Exception {
-        if(!repository.existsById(id)){
-            String message = MessageBuilder.build(ExceptionMessages.REPOSITORY.NOT_FOUND_ID, "ProductSituation", id);
-            throw new NoSuchElementException(message);
-        }
-        ProductSituation productSituation = get(id).get();
-        productSituation.update(productSituationUpdate);
-        return repository.save(productSituation);
+    public ProductSituation update(Long id, DataMap<Object> payload) throws Exception {
+        return null;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.warehouse.app.api.platform;
 
-import com.warehouse.app.factory.platform.FactoryPlatform;
 import com.warehouse.app.domain.platform.Platform;
 import com.warehouse.app.service.platform.PlatformService;
 import com.warehouse.app.domain.DataMap;
@@ -17,8 +16,6 @@ public class PlatformController {
 
     @Autowired
     private PlatformService service;
-    @Autowired
-    private FactoryPlatform factory;
 
     @GetMapping
     public List<Platform> getPlatforms () {
@@ -32,15 +29,13 @@ public class PlatformController {
 
     @PostMapping
     public ResponseEntity<Platform> postPlatform(@RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        Platform platform = factory.getInstance(payload);
-        service.insert(platform);
+        Platform platform = service.insert(payload);
         return ResponseEntity.ok().body(platform);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Platform> putPlatform(@PathVariable("id") Long id, @RequestBody(required = false) DataMap<Object> payload) throws Exception {
-        Platform platform = factory.getInstance(payload);
-        platform = service.update(id, platform);
+        Platform platform = service.update(id, payload);
         return ResponseEntity.ok().body(platform);
     }
 
