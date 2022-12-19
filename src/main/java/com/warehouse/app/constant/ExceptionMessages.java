@@ -17,4 +17,8 @@ public class ExceptionMessages {
         public static String NOT_FOUND_ID = "Element \"" + MessageBuilder.aux(1) + "\" with id \"" + MessageBuilder.aux(2) + "\" was not found";
     }
 
+    public class ENTITY {
+        public static String NOT_FOUND_DEFAULT = "Default \"" + MessageBuilder.aux() + "\" was not found";
+    }
+
 }

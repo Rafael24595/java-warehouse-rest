@@ -1,6 +1,7 @@
 package com.warehouse.app.domain.user;
 
 import com.warehouse.app.domain.WarehouseEntity;
+import com.warehouse.app.domain.role.Role;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class User implements WarehouseEntity<User> {
     public static final String SURNAME_2 = "surname_2";
     public static final String DATE_ORIGEN = "date_origen";
     public static final String DATE_MODIFY = "date_modify";
-    public static final String LEVEL = "level";
+    public static final String ROLE_FK = "role";
 
     @Id
     @SequenceGenerator(
@@ -45,8 +46,9 @@ public class User implements WarehouseEntity<User> {
     private Date dateOrigen;
     @Column(name = DATE_MODIFY, nullable = false)
     private Date dateModify;
-    @Column(name = LEVEL, nullable = false)
-    private Integer level;
+    @JoinColumn(name = ROLE_FK)
+    @OneToOne(fetch = FetchType.EAGER)
+    private Role role;
 
     public Long getId() {
         return id;
@@ -112,12 +114,12 @@ public class User implements WarehouseEntity<User> {
         this.dateModify = dateModify;
     }
 
-    public Integer getLevel() {
-        return level;
+    public Role getRole() {
+        return role;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -127,7 +129,7 @@ public class User implements WarehouseEntity<User> {
         setSurname1(user.getSurname1());
         setSurname2(user.getSurname2());
         setDateModify(user.getDateModify());
-        setLevel(user.getLevel());
+        setRole(user.getRole());
         return this;
     }
 

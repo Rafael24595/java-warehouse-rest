@@ -1,0 +1,5 @@
+/* Levantar docker */
+    docker run --name dbpostgres -e POSTGRES_PASSWORD=1234 -e POSTGRES_USER=main -e POSTGRES_DB=repo -d -p 5432:5432 postgres
+
+/* Acceder a la BBDD de docker */
+    docker exec -ti psql_lt psql -U main

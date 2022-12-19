@@ -154,11 +154,11 @@ public class DataMap<V> extends HashMap<String,V> implements Map<String,V>, Clon
     }
 
     public Long getLongHardNotNull(String key) throws IllegalArgumentException{
-        return  getLong(key, true, false);
+        return getLong(key, true, false);
     }
 
     public Long getLongHard(String key) throws IllegalArgumentException{
-        return  getLong(key, true, true);
+        return getLong(key, true, true);
     }
 
     public Long getLongSoftNotNull(String key) {
@@ -166,7 +166,7 @@ public class DataMap<V> extends HashMap<String,V> implements Map<String,V>, Clon
     }
 
     public Long getLongSoft(String key) {
-        return  getLong(key, false, true);
+        return getLong(key, false, true);
     }
 
     private Boolean getBoolean(String key, boolean exception, boolean nullable) throws IllegalArgumentException{

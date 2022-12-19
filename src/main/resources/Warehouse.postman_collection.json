@@ -618,6 +618,192 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "GetRoles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/role",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"role"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRoleById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/role/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"role",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Post",
+					"item": [
+						{
+							"name": "PostRole",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "415d8a8c-e66d-4753-8ac6-59a8712a63a7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"USER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/role",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"role"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Put",
+					"item": [
+						{
+							"name": "PutRole",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "b4c497a7-d6d9-48c1-b3c2-08e6a71e929d",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"SENIOR\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/role/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"role",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "DeleteRole",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "b4c497a7-d6d9-48c1-b3c2-08e6a71e929d",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/{{api_version}}/role/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"{{api_version}}",
+										"role",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [

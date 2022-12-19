@@ -1,7 +1,9 @@
 package com.warehouse.app.factory.user;
 
+import com.warehouse.app.domain.role.Role;
 import com.warehouse.app.factory.WarehouseFactory;
 import com.warehouse.app.domain.user.User;
+import com.warehouse.app.factory.role.FactoryRole;
 import com.warehouse.app.repository.user.UserRepository;
 import com.warehouse.app.domain.DataMap;
 import com.warehouse.app.constant.ExceptionMessages;
@@ -20,6 +22,8 @@ public class FactoryUser implements WarehouseFactory<User> {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private FactoryRole factoryRole;
 
     public User getInstance(Long id){
         Optional<User> user = repository.findById(id);
@@ -32,6 +36,7 @@ public class FactoryUser implements WarehouseFactory<User> {
 
     public User getInstance(DataMap<Object> dataStructure){
         User user = new User();
+        Role role = parseRole(dataStructure);
 
         try {
             user.setNickName(dataStructure.getStringHard(User.NICKNAME));
@@ -41,13 +46,21 @@ public class FactoryUser implements WarehouseFactory<User> {
             user.setSurname2(dataStructure.getStringHard(User.SURNAME_2));
             user.setDateOrigen(new Date(System.currentTimeMillis()));
             user.setDateModify(new Date(System.currentTimeMillis()));
-            user.setLevel(dataStructure.getIntegerHard(User.LEVEL));
+            user.setRole(role);
         }catch (Exception e){
             String message = MessageBuilder.build(ExceptionMessages.REQUEST.BAD_JSON_FORMAT, e.getMessage());
             throw new IllegalArgumentException(message);
         }
 
         return user;
+    }
+
+    private Role parseRole(DataMap<Object> dataStructure) {
+        Long id = dataStructure.getLongSoftNotNull(User.ROLE_FK);
+        if(id == 0)
+            return factoryRole.getDefault();
+
+        return factoryRole.getInstance(id);
     }
 
 }
